@@ -11,7 +11,7 @@ Prof: **Allison Parrish**
 1. Intro
 - console
 - more about programming
-- bees (?)
+- bees (?) *metaphor for learning to program*
 - Schedule & Syllabus
 - drawing stuff
 - homework
@@ -47,7 +47,7 @@ Decimal numbers are *floating point numbers* (ex: 15.654), instead of *integers*
 - `>` / `<`: greater/less than
 - `>=` / `<=`: greater/less than or equal to (no UNICODE characters!)
 
-<boolean values (true or false)>
+Some of these functions give *boolean* values, which are true or false. This will be really useful later on to evaluate and create programming "paths".
 ![boolean operations](0102_boolean.png)
 
 #### "Words" of the language
@@ -77,3 +77,36 @@ Ex: `Math.random()` returns a number between 0 and 1.
 ![dice example](0104_dice.png)
 
 > You're not supposed to KNOW those functions. Learning to program is learning how to search for these language-specific functions.
+
+
+### p5.js library
+Is a *library* of JavaScript that runs on it, but has an array of extra functions that make your life easier. It is focused on visual artists. (Other libraries are d3, react, angular, node.js... and thousands more!)
+> Libraries are collection of functions that someone created and collect them for others to use.
+
+Running JavaScript on a web browser you can edit the content of the web site (local copy). p5.js has built-in functions to draw on the browser.
+
+Because it's convenient, we're going to use the [p5.js web editor: alpha.editor.p5js.org](http://alpha.editor.p5js.org). **Sign up for an account to save your work.** On the left hand, you can write your code; and on the right hand, you run it. You can  *Sketches* are p5js files you run on your web browser. Computer screens are laid out as a grid of *pixels*, where **(0,0) is the upper-left hand corner**.
+
+p5.js needs a *setup function* and a *draw function*. On the *setup* you specify the *size* (and *background*) of the sketch.
+- `createCanvas(width, height);`
+- `background(color);`
+  - `color` values are expressed between 0-255.
+
+To draw on the sketch, you can use some of these functions:
+- `ellipse(posX , posY, width, height);` ellipse centered on (posX, posY).
+- `rect(posX, posY, width, height);` rectangle with the upper-left corner on (posX, posY).
+- `quad(x1, y1, x2, y2, x3, y3, x4, y4)` quadrilateral shape
+
+To "change the color on your paintbrush" you can use:
+- `fill(color)`
+- `stroke(color)`
+
+**Syntax**: JavaScript calls the functions in the order they are written. If you call the *background* after drawing something, it will get covered by the background!
+
+> No one remembers all the parameters of the functions. You just look them up on the language-specific **[reference](https://p5js.org/reference/)**.
+
+
+### Assignment
+- Watch the videos!
+- Create your own drawing with only these simple commands
+- Write a blog post on **how computation applies to your interests**.
