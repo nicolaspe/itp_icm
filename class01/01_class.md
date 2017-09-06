@@ -9,12 +9,12 @@ Prof: **Allison Parrish**
 
 ### Outline
 1. Intro
-- console
-- more about programming
-- bees (?) *metaphor for learning to program*
-- Schedule & Syllabus
-- drawing stuff
-- homework
+2. console
+3. more about programming
+4. bees (?) *metaphor for learning to program*
+5. Schedule & Syllabus
+6. drawing stuff
+7. homework
 
 
 ### First things first: about the class
