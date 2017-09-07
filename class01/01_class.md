@@ -36,7 +36,7 @@ An *expression* is a way to ask a computer a question. But you need the correct 
 Decimal numbers are *floating point numbers* (ex: 15.654), instead of *integers* (ex: 7).
 >A single number is also an expression that evaluates to itself.
 
-![simple operations](0101_operators.png)
+![simple operations](icm0101_operators.png)
 
 #### Operators
 - `+`: addition
@@ -48,7 +48,7 @@ Decimal numbers are *floating point numbers* (ex: 15.654), instead of *integers*
 - `>=` / `<=`: greater/less than or equal to (no UNICODE characters!)
 
 Some of these functions give *boolean* values, which are true or false. This will be really useful later on to evaluate and create programming "paths".
-![boolean operations](0102_boolean.png)
+![boolean operations](icm0102_boolean.png)
 
 #### "Words" of the language
 > CAPITALIZATION MATTERS!!! "Math" is not the same as "math".
@@ -63,7 +63,7 @@ Ex: `Math.random()` returns a number between 0 and 1.
 >"What does it mean for a coin to be heads or tails?" "What information I need to give and to get back?"
 
 `Math.random() > 0.5`
-![coin example](0103_coin.png)
+![coin example](icm0103_coin.png)
 
 **Ex 2**: Simulate a six-sided dice
 
@@ -74,7 +74,7 @@ Ex: `Math.random()` returns a number between 0 and 1.
 - Then, we need to give it the previous number we calculated
   - Anywhere you see a functions a number, you can also put an expression that evaluates to a number!
 - `Math.floor( (Math.random()*6) + 1 )`
-![dice example](0104_dice.png)
+![dice example](icm0104_dice.png)
 
 > You're not supposed to KNOW those functions. Learning to program is learning how to search for these language-specific functions.
 
