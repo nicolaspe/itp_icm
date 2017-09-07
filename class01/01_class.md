@@ -1,6 +1,6 @@
 # Intro to Comp Media - Sept 6
 
-Prof: **Allison Parrish**
+Prof: **[Allison Parrish](http://www.decontextualize.com/)**
 
 > Class about interactive computer programming.
 
