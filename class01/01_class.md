@@ -110,3 +110,7 @@ To "change the color on your paintbrush" you can use:
 - Watch the videos!
 - Create your own drawing with only these simple commands
 - Write a blog post on **how computation applies to your interests**.
+
+
+### Extra: bees <3
+![Allison's beehive analogy](icm0108_bees.png)

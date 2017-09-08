@@ -19,7 +19,15 @@ Then, I wanted to create some overlapping lilac rays. As they wouldn't be perfec
 
 ![Final picture](icm0107_final.png)
 
+I would have liked to create a lot more lilac rays, but without recursion and variables it's way too much code to write.
+
 
 ## How computation applies to my interests
 
-- Write a blog post about how computation applies to your interests. This could be a subject you've studied, a job you've worked, a personal hobby, or a cause you care about. What projects do you imagine making this term? What projects do you love? (Review and contribute to the ICM Inspiration Wiki page. In the same post (or a new one), document the process of creating your sketches. What pitfalls did you run into? What could you not figure out how to do? How was the experience of using the web editor? Did you post any issues to github?
+The main focus of my work is feminist social activism, for which I want to create content to push society to reflect on their privileges and stereotypes.
+
+Volunteering in a feminist organization for the last year and a half has shown me the great impact of educating society and the transformations you can achieve. But, at the same time, I am aware of the limitations of traditional tools. Most social problems have much to do with empathy and are met with enormous resistance.
+
+One of the best tools to bypass this opposition is storytelling, which effectively lowers those barriers and promotes empathy. It has a greater power to convey ideas, and by adding an interactive layer we involve the audience, creating a deeper immersion in the story
+
+This is why I would like to enhance my passion in writing and storytelling with computation, in order to build captivating content, installations and performances to promote respect and fight oppression.
