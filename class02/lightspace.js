@@ -4,7 +4,7 @@ var fR = 60;	// frameRate
 // orbit variables
 var orbitCenter, orbitAngle, orbitRadius;
 // colours
-var day, ray, sun, moon;
+var day, ray, sun, moon, sun2;
 
 function setup(){
 	createCanvas(640, 480);
@@ -15,11 +15,13 @@ function setup(){
 
 	// Orbits and objects
 	// orbitCenter = createVector(width/2, height*1.5+height*.2);
-	orbitCenter = createVector(width/2, height/2);
-	orbitRadius = height/4;
+	orbitCenter = createVector(width/2, height);
+	orbitRadius = height*0.8;
 	orbitAngle = PI*1.3;
 	sun = color(37, 64, 100, 100);
+	sun2 = color(37, 64, 100, 15);
 	moon = color(295, 18, 76, 100);
+	moon2 = color(295, 18, 76, 5);
 }
 
 function draw(){
@@ -39,6 +41,12 @@ function drawSun(){
   noStroke();
 	fill(sun);
 	ellipse(orbitRadius, 0, 100, 100);
+	fill(sun2);
+	ellipse(orbitRadius, 0, 400, 400);
+	ellipse(orbitRadius, 0, 340, 340);
+	ellipse(orbitRadius, 0, 280, 280);
+	ellipse(orbitRadius, 0, 220, 220);
+	ellipse(orbitRadius, 0, 160, 160);
 	pop();
 }
 
@@ -48,6 +56,11 @@ function drawMoon(){
   rotate(orbitAngle);
   fill(moon)
   ellipse(-orbitRadius, 0, 50, 50);
-  stroke(0);
+	fill(moon2);
+	ellipse(-orbitRadius, 0, 200, 200);
+	ellipse(-orbitRadius, 0, 170, 170);
+	ellipse(-orbitRadius, 0, 140, 140);
+	ellipse(-orbitRadius, 0, 110, 110);
+	ellipse(-orbitRadius, 0, 80, 80);
 	pop();
 }
