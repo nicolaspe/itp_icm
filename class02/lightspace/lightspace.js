@@ -6,7 +6,7 @@ var orbitCenter, orbitAngle, orbitRadius;
 // light robot variables
 var roboDiam, roboPos, roboCol, roboStr, roboEye, roboAngle, roboLines, roboVibe;
 // Environment variables
-var ground, darkCol, darkAlpha, trees;
+var ground, darkCol, darkAlpha, treeCol, trees, treeWind;
 // auxiliary variables
 var mPos;
 // colours
@@ -43,11 +43,12 @@ function setup(){
 	ground = color(30, 50, 100, 40);
 	darkAlpha = 100;
 	darkCol = color(315, 5, 30, 38);
+	treeCol = color(275, 88, 34, 100);
 	trees = [];
 	for (var i = 0; i < random(10,18); i++) {
 		trees.push(createVector( random(0,width), random(height*0.81, height*0.98),	random(10,40) ));
 	}
-
+	treeWind = random(1000);
 	// auxiliary
 	mPos = createVector(mouseX, mouseY);
 
@@ -64,12 +65,14 @@ function draw(){
   drawSun();
 	drawMoon();
 	drawGround();
+	drawTrees();
 	drawDarkness();
 	drawRobo();
 
 	// time passing
   t++;
 	roboVibe += 0.01;
+	treeWind += 0.01;
   orbitAngle += radians(1/5);
 }
 
@@ -138,7 +141,7 @@ function drawDarkness(){
 	rotate(roboAngle);
 	// prepare & calculate colours
 	noStroke();
-	darkAlpha = 40*sin(orbitAngle)+10;
+	darkAlpha = 50*sin(orbitAngle)+15;
 	darkCol = color(315, 5, 27, darkAlpha);
 	fill(darkCol);
 	// draw
@@ -155,17 +158,25 @@ function drawGround(){
 		rect(0, height*aux, width, height);
 		aux += 0.02;
 	}
+}
+function drawTrees(){
 	// draw trees
 	for (var i = 0; i < trees.length; i++) {
 		// translate and draw
 		push();
 		translate(trees[i].x, trees[i].y);
-		stroke(12);
-		strokeWeight(2);
-		line(0, 0, 0, -trees[i].z);
+		stroke(treeCol);
+		strokeWeight(1);
+		line(0, 0, -1, -trees[i].z*0.67);
+		// draw "leaves"
+		strokeWeight(1);
+		translate(0, -trees[i].z*0.66);
+		rotate(noise(treeWind));
+		for (var j = 0; j < 7; j++) {
+			line(0,0, 0, -trees[i].z/2);
+			rotate(0.14);
+		}
+		// return coordinates
 		pop();
 	}
-}
-function drawTree(xPos, yPos){
-
 }
