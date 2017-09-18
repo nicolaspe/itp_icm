@@ -141,6 +141,7 @@ function drawDarkness(){
 	rotate(roboAngle);
 	// prepare & calculate colours
 	noStroke();
+	// transparency dependent on the position of the sun/moon
 	darkAlpha = 50*sin(orbitAngle)+15;
 	darkCol = color(315, 5, 27, darkAlpha);
 	fill(darkCol);
