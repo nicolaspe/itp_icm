@@ -86,4 +86,4 @@ function drawDarkness(){
 }
 ```
 
-The background is just a superposition of rectangles and the small trees were made as several lines that change their rotation with a noise-generated variable. The final code can be found [here](https://github.com/nicolaspe/itp_icm/blob/master/class02/lightspace/lightspace.js); and to see it working, [follow this other purple rabbit](https://nicolaspe.github.io/itp_icm/class02/lightspace/index.html).
+The background is just a superposition of rectangles and the small trees were made as several lines that change their rotation with a noise-generated variable. The final code can be found [here](https://github.com/nicolaspe/itp_icm/blob/gh-pages/class02/lightspace/lightspace.js); and to see it working, [follow this other purple rabbit](https://nicolaspe.github.io/itp_icm/class02/lightspace/index.html).
