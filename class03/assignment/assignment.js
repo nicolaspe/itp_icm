@@ -1,15 +1,16 @@
-var t = 0;
-var fR = 60;
+var t = 0;	 // time keeper
+var fR = 60; // frame Rate
 
 // square variables
 var squares, sqRadius;
 // auxiliary squares
 var sq1, sq2, sq3, sq4;
 // environment variables
-var angle = 0;
+var angle;
 
 function setup(){
 	createCanvas(640, 480);
+	frameRate(fR);
 
 	rectMode(CENTER);
 	noFill();
@@ -24,6 +25,7 @@ function setup(){
   sq2 = [200, 100, 0.3, sqRadius+10];
   sq3 = [300, 100, 0.4, sqRadius+20];
   sq4 = [400, 100, 0.5, sqRadius+30];
+	angle = radians(5/fR);
 
   squares = [sq1, sq2, sq3, sq4];
 }
@@ -32,9 +34,10 @@ function draw(){
 	background(0);
 
 	shrinkSquares();
+	spinSquares();
 	drawSquares();
 
-	angle += radians(1/5);
+	t++;
 }
 
 // This function draws every square contained in the "squares" array
@@ -54,5 +57,11 @@ function shrinkSquares(){
 		if(squares[i][3] <= 0){
 			squares.splice(i, 1);
 		}
+	}
+}
+// This function spins the squares according to their size
+function spinSquares(){
+	for (var i = 0; i < squares.length; i++) {
+		squares[i][2] += angle * sqRadius/squares[i][3];
 	}
 }
