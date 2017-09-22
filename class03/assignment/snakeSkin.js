@@ -15,16 +15,16 @@ function setup(){
 	rectMode(CENTER);
 	noFill();
 	strokeWeight(2);
-	stroke(255, 255, 255, 60);
+	stroke(255, 255, 255, 80);
 
 	// variable initialization
 	squares = []; // [x, y, rotation, radius]
-	sqRadius = 50;
+	sqRadius = 100;
 
-  sq1 = [100, 100, 0.2, sqRadius];
-  sq2 = [200, 100, 0.3, sqRadius+10];
-  sq3 = [300, 100, 0.4, sqRadius+20];
-  sq4 = [400, 100, 0.5, sqRadius+30];
+  sq1 = [100, 100, 0.2, sqRadius-30];
+  sq2 = [200, 100, 0.3, sqRadius-20];
+  sq3 = [300, 100, 0.4, sqRadius-10];
+  sq4 = [400, 100, 0.5, sqRadius];
 	angle = radians(5/fR);
 
   squares = [sq1, sq2, sq3, sq4];
@@ -64,4 +64,15 @@ function spinSquares(){
 	for (var i = 0; i < squares.length; i++) {
 		squares[i][2] += angle * sqRadius/squares[i][3];
 	}
+}
+// This function creates a square and adds it to the array
+function createSquare(xpos, ypos, rotation, rad) {
+	// Create a new square
+	var newSquare = [xpos, ypos, rotation, rad];
+	// Add it to the array
+	squares.push(newSquare);
+}
+
+function mouseDragged(){
+	createSquare(mouseX, mouseY, 0, sqRadius);
 }
