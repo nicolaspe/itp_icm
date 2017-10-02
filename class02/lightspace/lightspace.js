@@ -60,7 +60,7 @@ function draw(){
 	// basic calculations
 	mPos = createVector(mouseX, mouseY);
 	roboAngle = p5.Vector.sub(mPos, roboPos).heading();
-
+	
 	// display
   drawSun();
 	drawMoon();
