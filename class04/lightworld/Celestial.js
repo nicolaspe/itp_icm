@@ -1,9 +1,10 @@
-function Celestial(celDiam, celDepth, celPos, orbitPos, celColor, lightHue){
+function Celestial(celDiam, celDepth, celPos, orbitPos, celColor, lightHue, textureImg){
 	this.diam = celDiam;
 	this.pos = createVector(0, -celPos, -celDepth);
 	this.orbit = orbitPos;
 	this.myColor = celColor;
 	this.lightColor = lightHue;
+	this.imgTexture = textureImg;
 
 	this.display = function(orbitAngle){
 		this.draw(orbitAngle);
@@ -18,8 +19,13 @@ function Celestial(celDiam, celDepth, celPos, orbitPos, celColor, lightHue){
 		// rotate to the desired position and translate
 		rotateZ(-orbitAngle);
 		translate(this.pos.x, this.pos.y, this.pos.z);
+		rotateX(orbitAngle);
 		// color and draw
-		basicMaterial(this.myColor);
+		if(textureImg != ""){
+			texture(this.imgTexture);
+		} else {
+			basicMaterial(this.myColor);
+		}
 		sphere(this.diam);
 		// return coordinates
 		pop();

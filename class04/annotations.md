@@ -109,3 +109,9 @@ function Robo(roboPos, roboDiam, roboColor, roboLight){
 #### Point lights!
 
 `pointLight()` work great with z=-0.5!
+
+
+#### Textures (why?! because I hate myself)
+
+textures and shadows
+textures and background
