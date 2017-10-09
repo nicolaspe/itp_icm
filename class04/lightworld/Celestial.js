@@ -19,7 +19,7 @@ function Celestial(celDiam, celDepth, celPos, orbitPos, celColor, lightHue, text
 		// rotate to the desired position and translate
 		rotateZ(-orbitAngle);
 		translate(this.pos.x, this.pos.y, this.pos.z);
-		rotateX(orbitAngle);
+		rotateY(orbitAngle);
 		// color and draw
 		if(textureImg != ""){
 			texture(this.imgTexture);
