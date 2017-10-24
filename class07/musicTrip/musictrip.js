@@ -1,7 +1,7 @@
 // CANVAS VARIABLES
 var container = document.querySelector('#sketch');
 var wid = document.body.clientWidth;
-var hei = 400
+var hei = 500
 
 // INITIALIZATION
 var scene  = new THREE.Scene();
@@ -44,7 +44,7 @@ let plane_mat = new THREE.MeshPhongMaterial( {
 } );
 var plane = new THREE.Mesh(plane_geo, plane_mat);
 plane.rotation.x = 3.1416/2;
-plane.position.y = -50;
+plane.position.y = -70;
 scene.add(plane);
 
 
@@ -79,7 +79,7 @@ function drawFFT(values){
 	// set the positions!
 	for (let i = 0; i < values.length; i++) {
 		// return values are bytes: range 0 - 255, centered on 0
-		points[i].position.y = values[i] +128;
+		points[i].position.y = values[i] +128 -20;
 	}
 }
 
@@ -88,36 +88,47 @@ var player = new Tone.Player("apocalypsisaquarius.mp3").toMaster();
 var player = new Tone.Player({
 	"url": "apocalypsisaquarius.mp3"
 }).fan(fft, waveform).toMaster();
-// var playing = false;
-// var play_button = document.createElement("INPUT");
-// play_button.setAttribute("type", "button");
-// play_button.setAttribute("text", "Play/Pause");
-// document.querySelector("#controls").appendChild(play_button);
-player.autostart = true;
+// button
+var playing = false;
+var play_button = document.createElement("INPUT");
+play_button.setAttribute("type", "button");
+play_button.value = "Play";
+play_button.addEventListener("click", function() {
+	console.log("BUTTON!");
+	if(playing){
+		player.stop();
+		play_button.value = "Play";
+	} else {
+		player.start();
+		play_button.value = "Stop";
+	}
+	playing = !playing;
+});
+document.querySelector("#controls").appendChild(play_button);
+player.autostart = false;
 
 
 
 // CONTROL
 // using Interface.js
-var playButton = new Interface.Button({
-	key : 32,
-	type : "toggle",
-	text : "Start",
-	activeText : "Stop",
-	start : function(){
-		player.start();
-	},
-	end : function(){
-		player.stop();
-	}
-});
+// var playButton = new Interface.Button({
+// 	key : 32,
+// 	type : "toggle",
+// 	text : "Start",
+// 	activeText : "Stop",
+// 	start : function(){
+// 		player.start();
+// 	},
+// 	end : function(){
+// 		player.stop();
+// 	}
+// });
 
 
 // RESIZE EVENT!
 window.addEventListener( 'resize', onWindowResize, false );
 function onWindowResize(){
 	wid = document.body.clientWidth;
-	hei = 400;
 	camera.aspect = wid/hei;
   camera.updateProjectionMatrix();
   renderer.setSize(wid, hei);
