@@ -5,7 +5,7 @@ var hei = 500
 
 // INITIALIZATION
 var scene  = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(30, wid/hei, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(30, wid/hei, 0.1, 10000);
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(wid, hei);
 camera.position.z = 400;
@@ -28,19 +28,22 @@ function onWindowResize(){
 // THREE.setContext(Tone.context);
 
 
-// LIGHTS
-var lights = [];
-lights[0] = new THREE.PointLight( 0xffffff, 1, 0 );
-lights[1] = new THREE.PointLight( 0xffffff, 1, 0 );
-lights[2] = new THREE.PointLight( 0xffffff, 1, 0 );
+// LIGHT
+var light = new THREE.PointLight( 0xffffff, 1, 6000, 2 );
+light.position.set(1000, 0, 0);
+scene.add(light);
 
-lights[0].position.set(  200,  200,  200 );
-lights[1].position.set( -200,  200, -200 );
-lights[2].position.set(    0, -200, -100 );
-
-scene.add(lights[0]);
-scene.add(lights[1]);
-scene.add(lights[2]);
+// SKYDOME
+// https://www.eso.org/public/usa/images/eso0932a/
+var skyGeo = new THREE.SphereGeometry(2000, 25, 25);
+var loader = new THREE.TextureLoader();
+var texture = loader.load("eso0932a_sphere.jpg");
+var skyMat = new THREE.MeshPhongMaterial({
+	map: texture,
+});
+var skyDome = new THREE.Mesh(skyGeo, skyMat);
+skyDome.material.side = THREE.BackSide;
+scene.add(skyDome);
 
 // PLANE
 let plane_geo = new THREE.PlaneGeometry(200, 20, 20, 20);
@@ -64,7 +67,6 @@ scene.add(plane);
 
 // ANALYSIS (+function) & POINTS
 let fft = new Tone.FFT(128);
-let waveform = new Tone.Waveform(1024);
 var points = [];
 let diam = 2;
 
@@ -98,16 +100,16 @@ function drawFFT(values){
 }
 
 // PLAYER + button
-// var player = new Tone.Player("apocalypsisaquarius.mp3").toMaster();
+/* set main Buffer callback function */
 Tone.Buffer.on('load', loadPlayButton);
-
+/* create the button */
 var playing = false;
 var play_button = document.createElement("INPUT");
 play_button.setAttribute("type", "button");
 play_button.value = "Play";
 play_button.disabled = true;
 document.querySelector("#controls").appendChild(play_button);
-
+/* create the player */
 var player = new Tone.Player({
 	'url':'apocalypsisaquarius.mp3'
 });
