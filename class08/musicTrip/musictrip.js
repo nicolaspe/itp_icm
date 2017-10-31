@@ -15,8 +15,17 @@ container.appendChild(renderer.domElement);
 var controls = new THREE.OrbitControls( camera, renderer.domElement );
 controls.update();
 
+// RESIZE EVENT!
+window.addEventListener( 'resize', onWindowResize, false );
+function onWindowResize(){
+	wid = document.body.clientWidth;
+	camera.aspect = wid/hei;
+  camera.updateProjectionMatrix();
+  renderer.setSize(wid, hei);
+}
+
 // set AudioContext to Tone.js
-// THREE.setContext(Tone.g)
+// THREE.setContext(Tone.context);
 
 
 // LIGHTS
@@ -47,6 +56,11 @@ plane.rotation.x = 3.1416/2;
 plane.position.y = -70;
 scene.add(plane);
 
+
+
+/*
+ * === MUSIC ===
+ */
 
 // ANALYSIS (+function) & POINTS
 let fft = new Tone.FFT(128);
@@ -83,18 +97,29 @@ function drawFFT(values){
 	}
 }
 
-// PLAYER
-var player = new Tone.Player("apocalypsisaquarius.mp3").toMaster();
-var player = new Tone.Player({
-	"url": "apocalypsisaquarius.mp3"
-}).fan(fft, waveform).toMaster();
-// button
+// PLAYER + button
+// var player = new Tone.Player("apocalypsisaquarius.mp3").toMaster();
+Tone.Buffer.on('load', loadPlayButton);
+
 var playing = false;
 var play_button = document.createElement("INPUT");
 play_button.setAttribute("type", "button");
 play_button.value = "Play";
+play_button.disabled = true;
+document.querySelector("#controls").appendChild(play_button);
+
+// var player = new Tone.Player("apocalypsisaquarius.mp3", loadPlayButton());
+var player = new Tone.Player("apocalypsisaquarius.mp3", loadPlayButton());
+// player.autostart = true;
+player.fan(fft).toMaster();
+player.autostart = false;
+
+// EVENT FUNCTIONS
+function loadPlayButton() {
+	play_button.disabled = false;
+	console.log("audio ready");
+}
 play_button.addEventListener("click", function() {
-	console.log("BUTTON!");
 	if(playing){
 		player.stop();
 		play_button.value = "Play";
@@ -104,9 +129,6 @@ play_button.addEventListener("click", function() {
 	}
 	playing = !playing;
 });
-document.querySelector("#controls").appendChild(play_button);
-player.autostart = false;
-
 
 
 // CONTROL
@@ -125,14 +147,8 @@ player.autostart = false;
 // });
 
 
-// RESIZE EVENT!
-window.addEventListener( 'resize', onWindowResize, false );
-function onWindowResize(){
-	wid = document.body.clientWidth;
-	camera.aspect = wid/hei;
-  camera.updateProjectionMatrix();
-  renderer.setSize(wid, hei);
-}
+
+
 
 
 function animate() {
