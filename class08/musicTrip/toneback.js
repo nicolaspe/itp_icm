@@ -10,8 +10,9 @@ play_button.value = "Play";
 play_button.disabled = true;
 document.querySelector("#controls").appendChild(play_button);
 
-// var player = new Tone.Player("apocalypsisaquarius.mp3", loadPlayButton());
-var player = new Tone.Player("apocalypsisaquarius.mp3", loadPlayButton());
+var player = new Tone.Player({
+	'url':'apocalypsisaquarius.mp3'
+});
 player.toMaster();
 player.autostart = false;
 
