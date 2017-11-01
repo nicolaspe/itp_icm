@@ -71,6 +71,20 @@ color, intensity, distance, decay... just played with these
 
 ### First, let's accumulate the points!
 
+
+Remove objects from a scene: the following DIDN'T WORK
+```
+function removePoints(){
+	for (let i = 0; i < points.length; i++) {
+		scene.remove( scene.getObjectById(i+100) );
+	}
+	points = [];
+	console.log("points cleaned");
+}
+```
+
+[Constrain](https://stackoverflow.com/questions/5842747/how-can-i-use-javascript-to-limit-a-number-between-a-min-max-value)
+
 ### Custom geometries
 https://threejs.org/docs/#api/core/Geometry
 

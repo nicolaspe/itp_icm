@@ -5,10 +5,15 @@ var hei = 500
 
 // INITIALIZATION
 var scene  = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(30, wid/hei, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(40, wid/hei, 0.1, 10000);
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(wid, hei);
-camera.position.z = 400;
+camera.position.x = -622.31;
+camera.position.y =  107.65;
+camera.position.z =  -22.73;
+camera.rotation.x = -0.959;
+camera.rotation.y = -1.385;
+camera.rotation.z = -0.950;
 container.appendChild(renderer.domElement);
 
 // CONTROLS
@@ -45,19 +50,19 @@ var skyDome = new THREE.Mesh(skyGeo, skyMat);
 skyDome.material.side = THREE.BackSide;
 scene.add(skyDome);
 
-// PLANE
-let plane_geo = new THREE.PlaneGeometry(200, 20, 20, 20);
-let plane_mat = new THREE.MeshPhongMaterial( {
-	color: 0x190337,
-	emissive: 0x6F59AF,
-	side: THREE.DoubleSide,
-	flatShading: true,
-	// wireframe: true
-} );
-var plane = new THREE.Mesh(plane_geo, plane_mat);
-plane.rotation.x = 3.1416/2;
-plane.position.y = -70;
-scene.add(plane);
+// // PLANE
+// let plane_geo = new THREE.PlaneGeometry(200, 20, 20, 20);
+// let plane_mat = new THREE.MeshPhongMaterial( {
+// 	color: 0x190337,
+// 	emissive: 0x6F59AF,
+// 	side: THREE.DoubleSide,
+// 	flatShading: true,
+// 	// wireframe: true
+// } );
+// var plane = new THREE.Mesh(plane_geo, plane_mat);
+// plane.rotation.x = 3.1416/2;
+// plane.position.y = -70;
+// scene.add(plane);
 
 
 
@@ -66,36 +71,52 @@ scene.add(plane);
  */
 
 // ANALYSIS (+function) & POINTS
-let fft = new Tone.FFT(128);
+let fft = new Tone.FFT(64);
 var points = [];
 let diam = 2;
+let disp = diam*4;
 
-function drawFFT(values){
-	// if there are no points, create them!
-	if(points.length <= 0){
-		// set base geometry for all the spheres
-		let point_geo = new THREE.SphereGeometry(diam, 12, 8);
-		// create the points
-		for (let i = 0; i < values.length; i++) {
-			// set specific color
-			let hue = (i/values.length)*120;
-			let colorString = "hsl(" + hue +", 100%, 50%)"
-			let point_mat = new THREE.MeshBasicMaterial({
-				color: colorString
-			});
-			points[i] = new THREE.Mesh(point_geo, point_mat);
-			// position each point in space!
-			points[i].position.x = (i/values.length)*200 -100;
-			points[i].position.y = plane.position.y;
-			points[i].position.z = plane.position.z;
-			scene.add(points[i]);
+function drawFFT(){
+	let values = fft.getValue();
+	// only draw if it's playing
+	if (playing) {
+		// if there are points already, displace them!
+		let curr_len = points.length;
+		if (curr_len > 0) {
+			displacePoints();
+		}
+
+		// do nothing if the fft value is too low!
+		if (Math.max(values) <= -300) { }
+		else {
+			// create the new points
+			// set base geometry for all the spheres
+			let point_geo = new THREE.SphereGeometry(diam, 12, 8);
+			for (let i = 0; i < values.length; i++) {
+				let j = curr_len +i;
+				// set specific color
+				let hue = (i/values.length)*120 +200;
+				let lum = (values[i]+128)/256 *50 +50;
+				lum = Math.min( Math.max( Math.round(lum), 1), 100);
+				let colorString = "hsl(" +hue +", 100%, " +lum +"%)"
+				let point_mat = new THREE.MeshBasicMaterial({
+					color: colorString
+				});
+				points[j] = new THREE.Mesh(point_geo, point_mat);
+				// position each point in space!
+				points[j].position.x = 0;
+				points[j].position.y = values[i] +128 -20;
+				points[j].position.z = (i/values.length)*200 -100;
+
+				scene.add(points[j]);
+			}
 		}
 	}
+}
 
-	// set the positions!
-	for (let i = 0; i < values.length; i++) {
-		// return values are bytes: range 0 - 255, centered on 0
-		points[i].position.y = values[i] +128 -20;
+function displacePoints(){
+	for (var i = 0; i < points.length; i++) {
+		points[i].position.x -= disp;
 	}
 }
 
@@ -118,11 +139,14 @@ player.autostart = false;
 
 // EVENT FUNCTIONS
 function loadPlayButton() {
+	// enable the button
 	play_button.disabled = false;
 	console.log("audio ready");
 }
+
 play_button.addEventListener("click", function() {
 	if(playing){
+		// stop the player
 		player.stop();
 		play_button.value = "Play";
 	} else {
@@ -131,6 +155,7 @@ play_button.addEventListener("click", function() {
 	}
 	playing = !playing;
 });
+
 
 
 // CONTROL
@@ -150,15 +175,19 @@ play_button.addEventListener("click", function() {
 
 
 
+/*
+ * == ANIMATION ==
+ */
 
-
+// interval function : call drawFFT
+window.setInterval(drawFFT, 50);
 
 function animate() {
 	requestAnimationFrame(animate);
 
 	// get fft data and draw it!
-	var fftValues = fft.getValue();
-	drawFFT(fftValues);
+	// let fftValues = fft.getValue();
+	// drawFFT(fftValues);
 
 	renderer.render(scene, camera);
 }
