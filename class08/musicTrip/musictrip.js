@@ -50,20 +50,6 @@ var skyDome = new THREE.Mesh(skyGeo, skyMat);
 skyDome.material.side = THREE.BackSide;
 scene.add(skyDome);
 
-// // PLANE
-// let plane_geo = new THREE.PlaneGeometry(200, 20, 20, 20);
-// let plane_mat = new THREE.MeshPhongMaterial( {
-// 	color: 0x190337,
-// 	emissive: 0x6F59AF,
-// 	side: THREE.DoubleSide,
-// 	flatShading: true,
-// 	// wireframe: true
-// } );
-// var plane = new THREE.Mesh(plane_geo, plane_mat);
-// plane.rotation.x = 3.1416/2;
-// plane.position.y = -70;
-// scene.add(plane);
-
 
 
 /*
@@ -155,24 +141,6 @@ play_button.addEventListener("click", function() {
 	}
 	playing = !playing;
 });
-
-
-
-// CONTROL
-// using Interface.js
-// var playButton = new Interface.Button({
-// 	key : 32,
-// 	type : "toggle",
-// 	text : "Start",
-// 	activeText : "Stop",
-// 	start : function(){
-// 		player.start();
-// 	},
-// 	end : function(){
-// 		player.stop();
-// 	}
-// });
-
 
 
 /*

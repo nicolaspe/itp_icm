@@ -1,5 +1,6 @@
 html {
-	background: #190337;
+	background: black;
+	/*background: #190337;*/
 	/*padding: 15px;*/
 }
 
@@ -26,12 +27,12 @@ a:hover {
 }
 
 .container {
-	background: black;
+	/*background: black;*/
 	color: #e0d5dd;
 }
 #sketch {
 	position: static;
-	background: black;
+	/*background: black;*/
 }
 #controls {
 	padding: 1px 30px 1px 30px;
