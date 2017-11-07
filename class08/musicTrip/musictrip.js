@@ -1,11 +1,11 @@
 // CANVAS VARIABLES
 var container = document.querySelector('#sketch');
 var wid = document.body.clientWidth;
-var hei = 500
+var hei = 500;
 
 // INITIALIZATION
 var scene  = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(40, wid/hei, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(40, wid/hei, 0.1, 4000);
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(wid, hei);
 camera.position.x = -622.31;
@@ -56,14 +56,52 @@ scene.add(skyDome);
  * === MUSIC ===
  */
 
+function minFromArray(vals){
+	let minValue = 0;
+	for (var i = 0; i < vals.length; i++) {
+		let n = Number(vals[i]);
+		if(n < minValue){
+			minValue = n;
+		}
+	}
+	return minValue;
+}
+function maxFromArray(vals){
+	let maxValue = -1000;
+	for (var i = 0; i < vals.length; i++) {
+		let n = Number(vals[i]);
+		if(n > maxValue){
+			maxValue = n;
+		}
+	}
+	return maxValue;
+}
+
 // ANALYSIS (+function) & POINTS
 let fft = new Tone.FFT(64);
 var points = [];
-let diam = 2;
+let diam = 1.5;
 let disp = diam*4;
+var minVal = 0;
+var maxVal = -1000;
 
 function drawFFT(){
 	let values = fft.getValue();
+
+	if(playing){
+		let minFFT = minFromArray(values);
+		let maxFFT = maxFromArray(values);
+		console.log(minFFT);
+		console.log(maxFFT);
+
+		if(minFFT > -800 && minFFT < minVal){
+			minVal = minFFT;
+		}
+		if(maxFFT > maxVal){
+			maxVal = maxFFT;
+		}
+	}
+
 	// only draw if it's playing
 	if (playing) {
 		// if there are points already, displace them!
@@ -74,16 +112,15 @@ function drawFFT(){
 
 		// do nothing if the fft value is too low!
 		if (Math.max(values) <= -300) { }
-		else {
-			// create the new points
-			// set base geometry for all the spheres
+		else {  // create the new points
+			// set base geometry for the new spheres
 			let point_geo = new THREE.SphereGeometry(diam, 12, 8);
 			for (let i = 0; i < values.length; i++) {
 				let j = curr_len +i;
 				// set specific color
 				let hue = (i/values.length)*120 +200;
 				let lum = (values[i]+128)/256 *50 +50;
-				lum = Math.min( Math.max( Math.round(lum), 1), 100);
+				lum = Math.min( Math.max( Math.round(lum), 1), 100);	// constrain
 				let colorString = "hsl(" +hue +", 100%, " +lum +"%)"
 				let point_mat = new THREE.MeshBasicMaterial({
 					color: colorString
@@ -105,6 +142,7 @@ function displacePoints(){
 		points[i].position.x -= disp;
 	}
 }
+
 
 // PLAYER + button
 /* set main Buffer callback function */
@@ -152,11 +190,6 @@ window.setInterval(drawFFT, 50);
 
 function animate() {
 	requestAnimationFrame(animate);
-
-	// get fft data and draw it!
-	// let fftValues = fft.getValue();
-	// drawFFT(fftValues);
-
 	renderer.render(scene, camera);
 }
 animate();
