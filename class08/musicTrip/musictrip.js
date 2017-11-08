@@ -42,7 +42,7 @@ scene.add(light);
 // https://www.eso.org/public/usa/images/eso0932a/
 var skyGeo = new THREE.SphereGeometry(2000, 25, 25);
 var loader = new THREE.TextureLoader();
-var texture = loader.load("eso0932a_sphere.jpg");
+var texture = loader.load("../media/eso0932a_sphere.jpg");
 var skyMat = new THREE.MeshPhongMaterial({
 	map: texture,
 });
@@ -156,7 +156,7 @@ play_button.disabled = true;
 document.querySelector("#controls").appendChild(play_button);
 /* create the player */
 var player = new Tone.Player({
-	'url':'apocalypsisaquarius.mp3'
+	'url':'../media/apocalypsisaquarius.mp3'
 });
 player.fan(fft).toMaster();
 player.autostart = false;

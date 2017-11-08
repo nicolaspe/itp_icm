@@ -45,6 +45,7 @@ update();
 
 ## Let's go mobile!
 To use it on Android devices...
+[request token](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md)
 
 But for other devices (ahem, iPhone, ahem), you need to use something additional: [WebVR Polyfill](https://github.com/googlevr/webvr-polyfill) to fill the ...
 
