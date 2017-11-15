@@ -15,9 +15,26 @@ container.appendChild(renderer.domElement);
 // VR
 renderer.vr.enabled = true;
 
-// CONTROLS
 var controls = new THREE.VRControls( camera );
 controls.update();
+
+navigator.getVRDisplays().then(displays => {
+  // Filter down to devices that can present.
+  displays = displays.filter(display => display.capabilities.canPresent);
+
+  // If there are no devices available, quit out.
+  if (displays.length === 0) {
+    console.warn('No devices available able to present.');
+    return;
+  }
+
+  // Store the first display we find. A more production-ready version should
+  // allow the user to choose from their available displays.
+  this._vr.display = displays[0];
+  this._vr.display.depthNear = DemoVR.CAMERA_SETTINGS.near;
+  this._vr.display.depthFar = DemoVR.CAMERA_SETTINGS.far;
+});
+
 
 // RESIZE EVENT!
 window.addEventListener( 'resize', onWindowResize, false );
@@ -66,7 +83,7 @@ function createParticles(){
 		let radio = Math.random()*1900;
 		let posX = radio *Math.sin(theta);
 		let posZ = radio *Math.cos(theta);
-		let posY = Math.random()*500;
+		let posY = Math.random()*550;
 
 		part_geo.vertices.push( new THREE.Vector3(posX, posY, posZ) );
 	}
