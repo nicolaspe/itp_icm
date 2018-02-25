@@ -1,4 +1,4 @@
-# The word is progress!
+# The word is immersion
 
 ## Surfaces!
 [Creation](https://stackoverflow.com/questions/9252764/how-to-create-a-custom-mesh-on-three-js)
@@ -14,7 +14,7 @@ soundSurf.geometry.elementsNeedUpdate = true;
 ## Particles!
 [link](https://aerotwist.com/tutorials/creating-particles-with-three-js/)
 
-# VR World!
+## VR World!
 
 BIG thanks to [Or Fleisher](http://orfleisher.com/)
 
